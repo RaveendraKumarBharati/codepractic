@@ -10,7 +10,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/languages")
-@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins="https://majestic-kleicha-e19a35.netlify.app")
 public class LanguageController {
 
     private final LanguageService languageService;

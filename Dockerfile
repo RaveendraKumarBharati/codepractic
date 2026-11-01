@@ -1,36 +1,21 @@
 # Stage 1: Build the Spring Boot application
 # Uses a JDK image from Eclipse Temurin for compilation.
-FROM eclipse-temurin:17-jdk-focal AS builder
+FROM eclipse-temurin:17-jdk
 
-# Set the working directory inside the container for the build stage.
 WORKDIR /app
 
-# Copy the Gradle wrapper and its directory.
-# This allows you to use the Gradle wrapper (gradlew) inside the container.
-COPY gradlew .
-COPY gradle gradle
+COPY pom.xml .
+COPY src ./src
 
-# Copy the build configuration files.
-# build.gradle: Main build script.
-# settings.gradle: Defines multi-project builds if applicable.
-COPY build.gradle settings.gradle .
+RUN chmod +x mvnw || true
+RUN ./mvnw package -DskipTests || mvn package -DskipTests
 
-# Copy the source code.
-# The `src` directory contains your Java source files, resources, etc.
-COPY src src
+EXPOSE 8080
 
-# Make the Gradle wrapper script executable.
-RUN chmod +x gradlew
+CMD ["java","-jar","target/*.jar"]
 
-# Build the Spring Boot application into an executable JAR.
-# `bootJar` task creates the executable JAR.
-# `-x test` skips running tests during the Docker build, which speeds up the build process.
-# This assumes your main JAR will be named `Billing-0.0.1-SNAPSHOT.jar` based on your
-# build.gradle `group` and `version`.
-RUN ./gradlew bootJar -x test
 
-# Stage 2: Create the final, lightweight runtime image
-# Uses a JRE image from Eclipse Temurin, which is much smaller than a JDK image.
+
 FROM eclipse-temurin:17-jre-focal
 
 # Set the working directory inside the container for the runtime stage.

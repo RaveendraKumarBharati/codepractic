@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/submissions")
 //@CrossOrigin(origins = "http://localhost:5173")
-  @CrossOrigin(origins="https://subtle-buttercream-6071bf.netlify.app")  
+  @CrossOrigin(origins="https://dulcet-lily-537f90.netlify.app")  
 public class SubmissionController {
 
     private final SubmissionService submissionService;

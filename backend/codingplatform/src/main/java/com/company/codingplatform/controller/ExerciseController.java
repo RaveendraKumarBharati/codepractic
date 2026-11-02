@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/exercises")
 //@CrossOrigin(origins = "http://localhost:5173")
-    @CrossOrigin(origins="https://majestic-kleicha-e19a35.netlify.app")
+    @CrossOrigin(origins="https://subtle-buttercream-6071bf.netlify.app")
 public class ExerciseController {
 
     private final ExerciseService exerciseService;
